@@ -29,16 +29,16 @@
     justify-content: center;
     gap: 4px;
     height: 52px;
-    background: rgba(255, 255, 255, 0.82);
+    background: rgba(255, 255, 255, 0.88);
     backdrop-filter: blur(20px) saturate(180%);
     -webkit-backdrop-filter: blur(20px) saturate(180%);
-    border-bottom: 0.5px solid rgba(0, 0, 0, 0.08);
+    border-bottom: 0.5px solid rgba(0, 0, 0, 0.1);
   }
 
   .tab-bar .logo {
     position: absolute;
-    right: 20px;
-    font-size: 16px;
+    right: 24px;
+    font-size: 18px;
     font-weight: 700;
     color: #1d1d1f;
     letter-spacing: -0.3px;
@@ -52,16 +52,16 @@
   .tab-pills {
     display: flex;
     gap: 2px;
-    background: rgba(0, 0, 0, 0.05);
+    background: rgba(0, 0, 0, 0.06);
     border-radius: 10px;
     padding: 3px;
   }
 
   .tab-btn {
     font-family: inherit;
-    font-size: 13.5px;
+    font-size: 14px;
     font-weight: 500;
-    padding: 6px 22px;
+    padding: 7px 28px;
     border: none;
     border-radius: 8px;
     cursor: pointer;
@@ -78,7 +78,8 @@
   .tab-btn.active {
     background: #ffffff;
     color: #1d1d1f;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08), 0 0.5px 1px rgba(0, 0, 0, 0.04);
+    font-weight: 600;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1), 0 0.5px 1px rgba(0, 0, 0, 0.06);
   }
 
   /* ─── FRAME CONTAINER ──────────────────────── */
@@ -98,10 +99,19 @@
     height: 100%;
     border: none;
     visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease;
   }
 
   .tab-frame.active {
     visibility: visible;
+    opacity: 1;
+  }
+
+  /* ─── MOBILE ───────────────────────────────── */
+  @media (max-width: 600px) {
+    .tab-bar .logo { display: none; }
+    .tab-btn { padding: 7px 24px; font-size: 13.5px; }
   }
 </style>
 </head>

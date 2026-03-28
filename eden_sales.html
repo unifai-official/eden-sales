@@ -248,6 +248,10 @@ footer strong{color:var(--mid);font-weight:600}
   .objection-wrap{padding:44px 24px}
   .svc-for,.price-table thead th:last-child{display:none}
 }
+
+/* ─── IFRAME EMBED ──────────────────────────────── */
+html.in-iframe nav { display:none !important }
+html.in-iframe .hero { padding-top:80px }
 </style>
 </head>
 <body>
@@ -578,5 +582,6 @@ const obs = new IntersectionObserver((entries) => {
 }, { threshold: 0.07 });
 document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 </script>
+<script>if(window!==window.top)document.documentElement.classList.add('in-iframe');</script>
 </body>
 </html>

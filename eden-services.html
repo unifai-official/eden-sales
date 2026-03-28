@@ -711,6 +711,11 @@
 
   /* ANCHOR TARGET OFFSET */
   [id] { scroll-margin-top: 70px; }
+
+  /* ─── IFRAME EMBED ──────────────────────────── */
+  html.in-iframe nav { display: none !important; }
+  html.in-iframe .hero { padding-top: 80px; }
+  html.in-iframe [id] { scroll-margin-top: 20px; }
 </style>
 </head>
 <body>
@@ -1466,5 +1471,6 @@
   const statsBar = document.querySelector('.stats-bar');
   if (statsBar) statsObserver.observe(statsBar);
 </script>
+<script>if(window!==window.top)document.documentElement.classList.add('in-iframe');</script>
 </body>
 </html>
