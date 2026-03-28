@@ -9,11 +9,12 @@
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  body {
+  html, body {
     font-family: 'Heebo', -apple-system, BlinkMacSystemFont, sans-serif;
     background: #f5f5f7;
+    margin: 0;
+    height: 100%;
     overflow: hidden;
-    height: 100vh;
   }
 
   /* ─── TAB BAR ─────────────────────────────── */
@@ -80,23 +81,24 @@
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08), 0 0.5px 1px rgba(0, 0, 0, 0.04);
   }
 
-  /* ─── IFRAME CONTAINER ────────────────────── */
-  .tab-frame {
+  /* ─── FRAME CONTAINER ──────────────────────── */
+  .frame-container {
     position: fixed;
     top: 52px;
     left: 0;
+    right: 0;
+    bottom: 0;
+  }
+
+  .tab-frame {
     width: 100%;
-    height: calc(100vh - 52px);
+    height: 100%;
     border: none;
-    background: #f5f5f7;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.2s ease;
+    display: none;
   }
 
   .tab-frame.active {
-    opacity: 1;
-    pointer-events: auto;
+    display: block;
   }
 </style>
 </head>
@@ -110,8 +112,10 @@
   </div>
 </nav>
 
-<iframe id="frame-sales" class="tab-frame active" src="eden_sales.html" loading="eager"></iframe>
-<iframe id="frame-services" class="tab-frame" src="eden-services.html" loading="lazy"></iframe>
+<div class="frame-container">
+  <iframe id="frame-sales" class="tab-frame active" src="eden_sales.html"></iframe>
+  <iframe id="frame-services" class="tab-frame" src="eden-services.html"></iframe>
+</div>
 
 <script>
   const buttons = document.querySelectorAll('.tab-btn');
