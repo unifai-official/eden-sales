@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>עדן | AI לעסקים</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+
+/* ─── TOKENS ─────────────────────────────────────── */
+:root {
+  --white:   #ffffff;
+  --off:     #f5f5f7;
+  --off2:    #fbfbfd;
+  --ink:     #1d1d1f;
+  --ink2:    #3a3a3c;
+  --mid:     #6e6e73;
+  --faint:   #86868b;
+  --line:    #d2d2d7;
+  --line2:   #e8e8ed;
+  --blue:    #0071e3;
+  --blue-h:  #0077ed;
+  --teal:    #30b0c7;
+  --r:       18px;
+  --shadow:  0 2px 24px rgba(0,0,0,0.06), 0 1px 4px rgba(0,0,0,0.04);
+  --shadow-h:0 8px 40px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.06);
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+body{
+  font-family:'Heebo',sans-serif;
+  background:var(--white);
+  color:var(--ink);
+  direction:rtl;
+  overflow-x:hidden;
+  line-height:1.5;
+}
+
+/* ─── NAV ─────────────────────────────────────────── */
+nav{
+  position:fixed;top:0;inset-inline:0;z-index:200;
+  height:52px;display:flex;align-items:center;
+  background:rgba(255,255,255,0.82);
+  backdrop-filter:saturate(180%) blur(20px);
+  -webkit-backdrop-filter:saturate(180%) blur(20px);
+  border-bottom:1px solid rgba(0,0,0,0.1);
+}
+.nav-inner{
+  max-width:1080px;margin:0 auto;padding:0 24px;
+  width:100%;display:flex;align-items:center;justify-content:space-between;
+}
+.nav-logo{font-size:17px;font-weight:700;color:var(--ink);letter-spacing:-0.3px}
+.nav-links{display:flex;gap:24px;list-style:none}
+.nav-links a{font-size:13px;color:var(--mid);text-decoration:none;font-weight:500;transition:color .2s}
+.nav-links a:hover{color:var(--blue)}
+.nav-cta{
+  font-size:13px;font-weight:600;color:var(--white);
+  background:var(--blue);padding:7px 18px;border-radius:100px;
+  text-decoration:none;transition:background .2s;
+}
+.nav-cta:hover{background:var(--blue-h)}
+
+/* ─── LAYOUT ──────────────────────────────────────── */
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+
+/* ─── HERO ────────────────────────────────────────── */
+.hero{
+  padding:140px 0 100px;
+  background:linear-gradient(180deg,var(--off2) 0%,var(--white) 100%);
+  text-align:center;position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 60% 50% at 50% 0%,rgba(0,113,227,0.07) 0%,transparent 70%);
+  pointer-events:none;
+}
+
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:7px;
+  font-size:13px;font-weight:600;color:var(--blue);
+  letter-spacing:0.2px;margin-bottom:20px;
+  animation:rise .7s cubic-bezier(.22,1,.36,1) both;
+}
+.hero-eyebrow::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--blue);flex-shrink:0}
+
+.hero-title{
+  font-size:clamp(40px,7vw,80px);
+  font-weight:800;letter-spacing:-2.5px;line-height:1.04;
+  color:var(--ink);margin-bottom:22px;
+  animation:rise .7s cubic-bezier(.22,1,.36,1) .08s both;
+}
+.hero-title span{
+  background:linear-gradient(135deg,var(--blue) 0%,var(--teal) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+
+.hero-sub{
+  font-size:clamp(17px,2.5vw,21px);color:var(--mid);
+  font-weight:400;max-width:580px;margin:0 auto 44px;
+  line-height:1.55;
+  animation:rise .7s cubic-bezier(.22,1,.36,1) .16s both;
+}
+.hero-sub strong{color:var(--ink);font-weight:600}
+
+.hero-actions{
+  display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;
+  animation:rise .7s cubic-bezier(.22,1,.36,1) .22s both;
+}
+.btn-primary{
+  display:inline-block;padding:14px 34px;
+  background:var(--blue);color:white;
+  font-size:17px;font-weight:600;border-radius:100px;
+  text-decoration:none;
+  transition:background .2s,transform .2s,box-shadow .2s;
+  box-shadow:0 0 0 0 rgba(0,113,227,0);
+}
+.btn-primary:hover{background:var(--blue-h);transform:scale(1.02);box-shadow:0 0 0 6px rgba(0,113,227,0.12)}
+.btn-ghost{
+  display:inline-flex;align-items:center;gap:5px;
+  font-size:17px;font-weight:600;color:var(--blue);text-decoration:none;transition:gap .2s;
+}
+.btn-ghost:hover{gap:9px}
+.btn-ghost::after{content:'←';display:inline-block}
+
+.tip-banner{
+  margin:60px auto 0;max-width:700px;
+  padding:22px 28px;background:var(--off);
+  border-radius:var(--r);border:1px solid var(--line2);
+  text-align:right;
+  animation:rise .7s cubic-bezier(.22,1,.36,1) .3s both;
+}
+.tip-label{font-size:12px;font-weight:700;color:var(--blue);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px}
+.tip-banner p{font-size:15px;color:var(--ink2);line-height:1.65}
+.tip-banner strong{color:var(--ink);font-weight:700}
+
+/* ─── STATS ───────────────────────────────────────── */
+.stats-row{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
+  background:var(--line2);border:1px solid var(--line2);
+  border-radius:var(--r);overflow:hidden;margin:80px 0;
+}
+.stat{background:var(--white);padding:36px 28px;text-align:center}
+.stat-num{font-size:48px;font-weight:800;letter-spacing:-2px;color:var(--ink);line-height:1;margin-bottom:8px}
+.stat-num span{color:var(--blue)}
+.stat-label{font-size:15px;color:var(--mid);font-weight:400;line-height:1.4}
+
+/* ─── SECTION ─────────────────────────────────────── */
+.section{padding:100px 0}
+.section-alt{background:var(--off)}
+.sect-eyebrow{font-size:12px;font-weight:700;color:var(--blue);letter-spacing:2px;text-transform:uppercase;display:block;margin-bottom:12px}
+.sect-title{font-size:clamp(28px,4vw,48px);font-weight:800;letter-spacing:-1.5px;color:var(--ink);line-height:1.1;margin-bottom:14px}
+.sect-sub{font-size:17px;color:var(--mid);max-width:540px;line-height:1.6;margin-bottom:56px}
+
+/* ─── CARDS ───────────────────────────────────────── */
+.svc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:20px}
+
+.card{
+  background:var(--white);border:1px solid var(--line2);
+  border-radius:var(--r);padding:32px 28px;
+  box-shadow:var(--shadow);
+  transition:transform .35s cubic-bezier(.22,1,.36,1),box-shadow .35s cubic-bezier(.22,1,.36,1),border-color .25s;
+  cursor:default;position:relative;overflow:hidden;
+}
+.card:hover{transform:translateY(-5px);box-shadow:var(--shadow-h);border-color:rgba(0,113,227,0.2)}
+.card-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:16px}
+.card-icon{font-size:28px;line-height:1}
+.card-num{font-size:12px;font-weight:700;color:var(--faint);letter-spacing:1.5px}
+.card-title{font-size:19px;font-weight:700;color:var(--ink);letter-spacing:-0.5px;margin-bottom:10px;line-height:1.3}
+.card-hook{font-size:14px;font-weight:600;color:var(--blue);margin-bottom:10px;line-height:1.4}
+.card-desc{font-size:14px;color:var(--mid);line-height:1.65;margin-bottom:20px}
+.card-price{
+  display:inline-flex;align-items:center;
+  background:rgba(0,113,227,0.08);color:var(--blue);
+  font-size:13px;font-weight:700;padding:6px 14px;border-radius:100px;margin-bottom:20px;
+}
+
+.ctable{width:100%;border-collapse:collapse;font-size:13px}
+.ctable thead tr{border-bottom:2px solid var(--line2)}
+.ctable th{padding:8px 6px;text-align:right;font-size:11px;font-weight:700;color:var(--faint);letter-spacing:1px;text-transform:uppercase}
+.ctable td{padding:9px 6px;color:var(--ink2);border-bottom:1px solid var(--line2);line-height:1.4;vertical-align:top}
+.ctable tr:last-child td{border-bottom:none}
+.ctable td.save{color:var(--blue);font-weight:700;text-align:center;white-space:nowrap;font-size:12px}
+.ctable tr:hover td{background:var(--off2)}
+
+/* ─── PRICING TABLE ───────────────────────────────── */
+.price-table{
+  width:100%;border-collapse:collapse;
+  border:1px solid var(--line2);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow);
+}
+.price-table thead tr{background:var(--ink)}
+.price-table thead th{padding:16px 22px;text-align:right;font-size:13px;font-weight:600;color:rgba(255,255,255,0.85);letter-spacing:0.3px}
+.price-table tbody tr{border-bottom:1px solid var(--line2);transition:background .15s}
+.price-table tbody tr:last-child{border-bottom:none}
+.price-table tbody tr:hover{background:var(--off)}
+.price-table td{padding:15px 22px;font-size:15px;color:var(--ink2);vertical-align:middle}
+.svc-name{font-weight:600;color:var(--ink);display:flex;align-items:center;gap:10px}
+.svc-price{font-weight:700;color:var(--blue);font-size:14px}
+.svc-for{font-size:13px;color:var(--mid)}
+
+/* ─── OBJECTION ───────────────────────────────────── */
+.objection-wrap{
+  background:var(--ink);border-radius:24px;
+  padding:72px 56px;text-align:center;
+  position:relative;overflow:hidden;
+}
+.objection-wrap::before{
+  content:'"';position:absolute;top:-40px;right:32px;
+  font-size:300px;font-weight:900;color:rgba(255,255,255,0.04);line-height:1;pointer-events:none;
+}
+.obj-label{font-size:12px;font-weight:700;color:var(--teal);letter-spacing:2.5px;text-transform:uppercase;margin-bottom:20px;display:block}
+.obj-q{font-size:clamp(14px,2vw,18px);color:rgba(255,255,255,0.45);margin-bottom:24px;font-weight:400}
+.obj-quote{
+  font-size:clamp(22px,3.5vw,34px);font-weight:700;color:white;
+  line-height:1.5;letter-spacing:-0.5px;max-width:700px;margin:0 auto 28px;
+}
+.obj-quote em{
+  font-style:normal;
+  background:linear-gradient(135deg,var(--blue) 0%,var(--teal) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.obj-note{font-size:16px;color:rgba(255,255,255,0.45)}
+.obj-note strong{color:rgba(255,255,255,0.8)}
+
+/* ─── DIVIDER ─────────────────────────────────────── */
+.divider{height:1px;background:var(--line2)}
+
+/* ─── FOOTER ──────────────────────────────────────── */
+footer{padding:40px 0;background:var(--off);border-top:1px solid var(--line2);text-align:center}
+footer p{font-size:13px;color:var(--faint)}
+footer strong{color:var(--mid);font-weight:600}
+
+/* ─── ANIMATIONS ──────────────────────────────────── */
+@keyframes rise{
+  from{opacity:0;transform:translateY(22px)}
+  to  {opacity:1;transform:translateY(0)}
+}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)}
+.reveal.in{opacity:1;transform:translateY(0)}
+.d1{transition-delay:.07s}.d2{transition-delay:.14s}.d3{transition-delay:.21s}
+
+/* ─── RESPONSIVE ──────────────────────────────────── */
+@media(max-width:768px){
+  .svc-grid{grid-template-columns:1fr}
+  .stats-row{grid-template-columns:1fr}
+  .nav-links,.nav-cta{display:none}
+  .objection-wrap{padding:44px 24px}
+  .svc-for,.price-table thead th:last-child{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">Eden AI</div>
+    <ul class="nav-links">
+      <li><a href="#services">שירותים</a></li>
+      <li><a href="#pricing">תמחור</a></li>
+      <li><a href="#close">כלים לסגירה</a></li>
+    </ul>
+    <a href="#pricing" class="nav-cta">ראה מחירים</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-eyebrow">מדריך מכירות פנימי — עדן בלבד</div>
+    <h1 class="hero-title">
+      אנחנו לא מוכרים תוכנה.<br>
+      <span>אנחנו מחזירים זמן.</span>
+    </h1>
+    <p class="hero-sub">
+      כל שירות שאנחנו מציעים מוריד עומס מהעסק —
+      <strong>פחות שעות אבודות, פחות טעויות, יותר הכנסה</strong> מאותה כמות עובדים.
+    </p>
+    <div class="hero-actions">
+      <a href="#services" class="btn-primary">כל השירותים שלנו</a>
+      <a href="#pricing" class="btn-ghost">ראה תמחור</a>
+    </div>
+    <div class="tip-banner">
+      <div class="tip-label">הטיפ הראשון לכל פגישה</div>
+      <p>שאל את הלקוח: <strong>"איזה דבר שאתה עושה היום לוקח לך הכי הרבה זמן?"</strong><br>
+      התשובה שלו היא הפרויקט הראשון שלנו איתו. תמיד.</p>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section style="padding:60px 0">
+  <div class="wrap">
+    <div class="stats-row reveal">
+      <div class="stat"><div class="stat-num">1<span>1</span></div><div class="stat-label">שירותים שאנחנו מציעים</div></div>
+      <div class="stat"><div class="stat-num"><span>40</span>%</div><div class="stat-label">חיסכון ממוצע בשעות עבודה</div></div>
+      <div class="stat"><div class="stat-num"><span>3</span>–4</div><div class="stat-label">חודשים להחזר השקעה</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SERVICES -->
+<section class="section" id="services">
+  <div class="wrap">
+    <span class="sect-eyebrow reveal">מה אנחנו מוכרים</span>
+    <h2 class="sect-title reveal">כל שירות. כל דוגמה. כל מחיר.</h2>
+    <p class="sect-sub reveal">11 שירותים. לכל אחד — דוגמאות אמיתיות לפי עסק וכמה שעות הוא חוסך בשבוע.</p>
+
+    <div class="svc-grid">
+
+      <div class="card reveal">
+        <div class="card-top"><span class="card-icon">🧠</span><span class="card-num">01</span></div>
+        <h3 class="card-title">AI מותאם אישית לעסק</h3>
+        <div class="card-hook">כמו עובד שהכשרת אותו במלואו — מהיום הראשון.</div>
+        <p class="card-desc">במקום ChatGPT גנרי שלא מכיר את העסק — מערכת שיודעת את המוצרים שלך, הסגנון שלך, הלקוחות שלך. עובדת שעות, לא עולה שעות.</p>
+        <div class="card-price">12,000 – 45,000 ש"ח</div>
+        <table class="ctable">
+          <thead><tr><th>עסק</th><th>מה בונים</th><th>חיסכון</th></tr></thead>
+          <tbody>
+            <tr><td>קליניקת שיניים</td><td>עונה לשאלות, שולחת הצעות מחיר</td><td class="save">6–8 שע'/שבוע</td></tr>
+            <tr><td>משרד עו"ד</td><td>מכינה טיוטות חוזים ראשוניות</td><td class="save">10–15 שע'/שבוע</td></tr>
+            <tr><td>סוכנות ביטוח</td><td>מנתחת צרכים ובונה הצעה</td><td class="save">5–7 שע'/שבוע</td></tr>
+            <tr><td>חנות אונליין</td><td>כותבת תיאורים, עונה לביקורות</td><td class="save">8–12 שע'/שבוע</td></tr>
+            <tr><td>חברת נדל"ן</td><td>דוחות ניתוח ומסמכי עסקה</td><td class="save">10+ שע'/שבוע</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card reveal d1">
+        <div class="card-top"><span class="card-icon">⚡</span><span class="card-num">02</span></div>
+        <h3 class="card-title">אוטומציות עסקיות</h3>
+        <div class="card-hook">מה שחוזר כל יום — המחשב עושה לבד.</div>
+        <p class="card-desc">אין יותר "שכחתי לשלוח", "לא עדכנתי", "לא ידעתי שהמלאי נגמר". המשימות הגוזלות זמן פשוט קורות — בדיוק, בזמן, ללא מגע.</p>
+        <div class="card-price">3,500 – 18,000 ש"ח</div>
+        <table class="ctable">
+          <thead><tr><th>עסק</th><th>מה מאטמטים</th><th>חיסכון</th></tr></thead>
+          <tbody>
+            <tr><td>מסעדה</td><td>הזמנות למטבח + SMS ללקוח לבד</td><td class="save">3–4 שע'/יום</td></tr>
+            <tr><td>חדר כושר</td><td>תזכורות, מנויים, קבלות אוטומטי</td><td class="save">5 שע'/שבוע</td></tr>
+            <tr><td>ספק ציוד</td><td>מלאי יורד = הזמנה אוטומטית לספק</td><td class="save">4 שע'/שבוע</td></tr>
+            <tr><td>מכון יופי</td><td>תזכורת תור + אישור + עדכון יומן</td><td class="save">2–3 שע'/יום</td></tr>
+            <tr><td>יבואן</td><td>מסמכי מכס לעו"ד ומחסן לבד</td><td class="save">6 שע'/משלוח</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card reveal d2">
+        <div class="card-top"><span class="card-icon">👥</span><span class="card-num">03</span></div>
+        <h3 class="card-title">ניהול לקוחות — CRM מותאם</h3>
+        <div class="card-hook">מקום אחד. הכל שם. אף אחד לא נשכח.</div>
+        <p class="card-desc">מי שילם, מי לא, מה הסטטוס, מה הצעד הבא — מסך אחד שמחליף חמישה גיליונות אקסל שאף אחד לא מעדכן ואף אחד לא מבין.</p>
+        <div class="card-price">8,000 – 30,000 ש"ח</div>
+        <table class="ctable">
+          <thead><tr><th>עסק</th><th>מה המערכת עושה</th><th>חיסכון</th></tr></thead>
+          <tbody>
+            <tr><td>קבלן שיפוצים</td><td>פרויקטים, תשלומים, קבלני משנה</td><td class="save">8 שע'/שבוע</td></tr>
+            <tr><td>רואה חשבון</td><td>דדליינים, מסמכים, תזכורות דוחות</td><td class="save">5 שע'/שבוע</td></tr>
+            <tr><td>יועץ עסקי</td><td>מי מתעניין, מי סגר, מי בריטיינר</td><td class="save">4 שע'/שבוע</td></tr>
+            <tr><td>חברת ניקיון</td><td>לקוחות קבועים, תשלומים, דירוגים</td><td class="save">6 שע'/שבוע</td></tr>
+            <tr><td>ספא / מכון</td><td>יום הולדת = הטבה. לא חזר = SMS</td><td class="save">3–4 שע'/שבוע</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-top"><span class="card-icon">📋</span><span class="card-num">04</span></div>
+        <h3 class="card-title">הצעות מחיר — עד חתימה אוטומטית</h3>
+        <div class="card-hook">מהפנייה לחוזה חתום — בלי לגעת.</div>
+        <p class="card-desc">הלקוח מבקש. המערכת שולחת, מזכירה, שולחת חוזה, ומקבלת חתימה דיגיטלית. לא מפסידים עסקה. לא שוכחים לחזור.</p>
+        <div class="card-price">6,000 – 20,000 ש"ח</div>
+        <table class="ctable">
+          <thead><tr><th>עסק</th><th>ההשפעה</th><th>חיסכון</th></tr></thead>
+          <tbody>
+            <tr><td>קבלן אינסטלציה</td><td>שולח 10 הצעות במקום 4 בשבוע</td><td class="save">5 שע'/שבוע</td></tr>
+            <tr><td>מעצבת פנים</td><td>הצעה + חוזה חתום בלחיצה אחת</td><td class="save">4 שע'/לקוח</td></tr>
+            <tr><td>חברת אירועים</td><td>מחירון דינמי + אישור אוטומטי</td><td class="save">6 שע'/שבוע</td></tr>
+            <tr><td>ספק מזון</td><td>הצעה חוזרת חודשית נשלחת לבד</td><td class="save">8 שע'/חודש</td></tr>
+            <tr><td>שירותי תרגום</td><td>הצעה + לינק תשלום מיד עם פנייה</td><td class="save">3 שע'/שבוע</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card reveal d1">
+        <div class="card-top"><span class="card-icon">📱</span><span class="card-num">05</span></div>
+        <h3 class="card-title">אפליקציה לנייד — iPhone ואנדרואיד</h3>
+        <div class="card-hook">הלקוח תמיד איתך — בכיס שלו.</div>
+        <p class="card-desc">אפליקציה שהלקוחות מורידים לטלפון. הם מזמינים, משלמים, עוקבים — ישירות. בלי לחפש אותך בגוגל בכל פעם מחדש.</p>
+        <div class="card-price">35,000 – 120,000 ש"ח</div>
+        <table class="ctable">
+          <thead><tr><th>עסק</th><th>מה האפליקציה עושה</th><th>ערך</th></tr></thead>
+          <tbody>
+            <tr><td>מכולת שכונתית</td><td>הזמנה + משלוח מהטלפון</td><td class="save">מתחרה ברמי לוי</td></tr>
+            <tr><td>חדר כושר</td><td>שיעורים, אימונים, מנוי</td><td class="save">פחות ביטולים</td></tr>
+            <tr><td>קליניקה</td><td>תורים, בדיקות, תזכורות</td><td class="save">חיסכון 2 מזכירות</td></tr>
+            <tr><td>לוגיסטיקה</td><td>מיקום משלוח בזמן אמת</td><td class="save">פחות שיחות שירות</td></tr>
+            <tr><td>רשת בתי קפה</td><td>הזמנה מראש + נקודות נאמנות</td><td class="save">יותר חזרות</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card reveal d2">
+        <div class="card-top"><span class="card-icon">🎵</span><span class="card-num">06</span></div>
+        <h3 class="card-title">שירים, ג'ינגלים ופלייליסטים</h3>
+        <div class="card-hook">הצליל של הברנד שלך — לא של מישהו אחר.</div>
+        <p class="card-desc">מוזיקה שנשמעת כמו של המקום. שיר פרסומי שנשאר בראש, פלייליסט שחלק מהחוויה, ג'ינגל שמזהים בשנייה.</p>
+        <div class="card-price">2,500 – 12,000 ש"ח</div>
+        <table class="ctable">
+          <thead><tr><th>עסק</th><th>מה מקבל</th><th>ערך</th></tr></thead>
+          <tbody>
+            <tr><td>רשת קפה</td><td>פלייליסט ממותג לפי שעות היום</td><td class="save">חוויה = חזרות</td></tr>
+            <tr><td>בוטיק ביגוד</td><td>ג'ינגל + מוזיקת רקע לחנות</td><td class="save">זיהוי ברנד</td></tr>
+            <tr><td>אולם אירועים</td><td>שיר מותאם לכל סוג אירוע</td><td class="save">שירות פרימיום</td></tr>
+            <tr><td>חדר כושר</td><td>פלייליסט לפי סוג אימון</td><td class="save">חוויית אימון</td></tr>
+            <tr><td>מותג ילדים</td><td>שיר ממותג לפרסומות</td><td class="save">זיהוי מיידי</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-top"><span class="card-icon">🌐</span><span class="card-num">07</span></div>
+        <h3 class="card-title">בניית אתר אינטרנט</h3>
+        <div class="card-hook">אתר שמוכר — לא אתר שרק קיים.</div>
+        <p class="card-desc">נראה מקצועי, נטען מהר, ומסביר ללקוח מיד למה לבחור בך. לא ויטרינה. כלי מכירות שעובד 24/7 גם כשאתה ישן.</p>
+        <div class="card-price">5,000 – 28,000 ש"ח</div>
+        <table class="ctable">
+          <thead><tr><th>עסק</th><th>מה האתר עושה</th><th>תוצאה</th></tr></thead>
+          <tbody>
+            <tr><td>עורך דין</td><td>נחיתה + מאמרים + ביקורות</td><td class="save">לקוחות מגוגל</td></tr>
+            <tr><td>יועץ פיננסי</td><td>מחשבון + פגישה אוטומטית</td><td class="save">לידים ישירים</td></tr>
+            <tr><td>קבלן בניה</td><td>גלריה + הסמכות + פנייה</td><td class="save">פרויקטים גדולים</td></tr>
+            <tr><td>מטפלת</td><td>מחירים + תורים + מקדמה</td><td class="save">ללא מזכירה</td></tr>
+            <tr><td>מאפייה</td><td>תפריט + הזמנות + משלוח</td><td class="save">מכירות 24/7</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card reveal d1">
+        <div class="card-top"><span class="card-icon">🎓</span><span class="card-num">08</span></div>
+        <h3 class="card-title">אימון AI לעובדים — סדנה בעסק</h3>
+        <div class="card-hook">אותו עובד. פי שניים עבודה. ללא גיוס.</div>
+        <p class="card-desc">מגיעים לעסק ומלמדים עובדים רגילים לעבוד עם AI על העבודה שלהם בפועל. לא קורס. לא תיאוריה. תוצאות מהיום הראשון.</p>
+        <div class="card-price">2,500 – 6,000 ש"ח ליום</div>
+        <table class="ctable">
+          <thead><tr><th>עסק</th><th>מה מלמדים</th><th>חיסכון</th></tr></thead>
+          <tbody>
+            <tr><td>משרד שיווק</td><td>קמפיינים, פוסטים, תסריטים</td><td class="save">40% פחות שעות</td></tr>
+            <tr><td>משרד עו"ד</td><td>טיוטות חוזה, מחקר פסיקה</td><td class="save">30% פחות שעות</td></tr>
+            <tr><td>חברת נדל"ן</td><td>מודעות, ניתוח עסקאות, מצגות</td><td class="save">5 שע'/שבוע לסוכן</td></tr>
+            <tr><td>חברת גיוס</td><td>סינון קורות חיים, פרסום משרות</td><td class="save">60% בסינון</td></tr>
+            <tr><td>חברת ביטוח</td><td>תביעות, סיכומים, תקשורת לקוח</td><td class="save">4–6 שע'/שבוע</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card reveal d2">
+        <div class="card-top"><span class="card-icon">🔄</span><span class="card-num">09</span></div>
+        <h3 class="card-title">מנוי שעות AI חודשי</h3>
+        <div class="card-hook">בלי פרויקט. בלי בירוקרטיה. פשוט מבקש ומקבל.</div>
+        <p class="card-desc">העסק קונה שעות בחודש. בשעות האלה — כל שדרוג, כלי חדש, שינוי. כאילו יש צוות AI פנימי שלך.</p>
+        <div class="card-price">1,800 – 6,800 ש"ח לחודש</div>
+        <table class="ctable">
+          <thead><tr><th>חבילה</th><th>מה כולל</th><th>מחיר</th></tr></thead>
+          <tbody>
+            <tr><td>בסיסי — 4 שעות</td><td>שדרוגים קטנים, תחזוקה</td><td class="save">1,800 ₪/חודש</td></tr>
+            <tr><td>מקצועי — 10 שעות</td><td>פיתוח שוטף, כלים חדשים</td><td class="save">3,900 ₪/חודש</td></tr>
+            <tr><td>מנהל — 20 שעות</td><td>פרויקטים, עדיפות מלאה</td><td class="save">6,800 ₪/חודש</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-top"><span class="card-icon">📅</span><span class="card-num">10</span></div>
+        <h3 class="card-title">תוכן לכל חגי השנה — חד פעמי</h3>
+        <div class="card-hook">פעם אחת. לכל השנה. לוחצים פרסם וזהו.</div>
+        <p class="card-desc">בונים מאגר מלא של פוסטים, סטוריז, וסרטונים לכל חגי השנה — ממותגים, מתוזמנים, מוכנים. הלקוח לא צריך לחשוב. רק ללחוץ.</p>
+        <div class="card-price">4,500 – 12,000 ש"ח חד פעמי</div>
+        <table class="ctable">
+          <thead><tr><th>עסק</th><th>מה מקבל</th><th>חיסכון</th></tr></thead>
+          <tbody>
+            <tr><td>מסעדה</td><td>60+ פוסטים ממותגים לכל חג</td><td class="save">3,000 ₪/חודש</td></tr>
+            <tr><td>חנות ביגוד</td><td>קמפיין מכירות + פוסטים שוטפים</td><td class="save">5 שע'/שבוע</td></tr>
+            <tr><td>עסק שירות</td><td>תוכן עונתי שמייצר פניות</td><td class="save">שיווק חיצוני</td></tr>
+            <tr><td>קליניקה</td><td>פוסטים חינוכיים לכל החגים</td><td class="save">3 שע'/שבוע</td></tr>
+            <tr><td>מתנות עסקיות</td><td>קמפיין פסח / ר"ה / חנוכה מוכן</td><td class="save">עונות השיא</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card reveal d1">
+        <div class="card-top"><span class="card-icon">💬</span><span class="card-num">11</span></div>
+        <h3 class="card-title">צ'אט בוט — וואטסאפ, אתר, אינסטגרם</h3>
+        <div class="card-hook">הלקוח שואל בחצות — ומקבל תשובה בחצות.</div>
+        <p class="card-desc">בוט שעונה 24/7 על שאלות, מחירים, זמינות, ותורים. לקוח שלא מקבל תשובה הולך למתחרה. פשוט כך.</p>
+        <div class="card-price">4,000 – 16,000 ש"ח + 500–1,500/חודש</div>
+        <table class="ctable">
+          <thead><tr><th>עסק</th><th>מה הבוט עושה</th><th>חיסכון</th></tr></thead>
+          <tbody>
+            <tr><td>חדר כושר</td><td>מחיר, ניסיון חינם, הרשמה</td><td class="save">15+ שיחות/יום</td></tr>
+            <tr><td>קליניקת עור</td><td>טיפולים, מחירון, ייעוץ</td><td class="save">2–3 שע'/יום</td></tr>
+            <tr><td>הובלות</td><td>הצעה לפי גודל דירה + עיר</td><td class="save">מסנן לידים</td></tr>
+            <tr><td>מלון / צימר</td><td>חדרים, זמינות, ביטולים</td><td class="save">שירות לילי</td></tr>
+            <tr><td>חנות אונליין</td><td>מעקב הזמנה, החזרות, המלצות</td><td class="save">40% פחות פניות</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PRICING -->
+<section class="section section-alt" id="pricing">
+  <div class="wrap">
+    <span class="sect-eyebrow reveal">תמחור</span>
+    <h2 class="sect-title reveal">כמה זה עולה?</h2>
+    <p class="sect-sub reveal">מחירי בסיס. כל לקוח מקבל הצעה מותאמת אישית.</p>
+    <div class="reveal">
+      <table class="price-table">
+        <thead><tr><th>שירות</th><th>טווח מחיר</th><th>מתאים ל</th></tr></thead>
+        <tbody>
+          <tr><td><span class="svc-name">🧠 AI מותאם לעסק</span></td><td class="svc-price">12,000 – 45,000 ש"ח</td><td class="svc-for">עסקים בינוניים וגדולים</td></tr>
+          <tr><td><span class="svc-name">⚡ אוטומציות עסקיות</span></td><td class="svc-price">3,500 – 18,000 ש"ח</td><td class="svc-for">כל עסק</td></tr>
+          <tr><td><span class="svc-name">👥 CRM מותאם</span></td><td class="svc-price">8,000 – 30,000 ש"ח</td><td class="svc-for">עסקים עם הרבה לקוחות</td></tr>
+          <tr><td><span class="svc-name">📋 הצעות מחיר אוטומטיות</span></td><td class="svc-price">6,000 – 20,000 ש"ח</td><td class="svc-for">קבלנים, יועצים, ספקים</td></tr>
+          <tr><td><span class="svc-name">📱 אפליקציה לנייד</span></td><td class="svc-price">35,000 – 120,000 ש"ח</td><td class="svc-for">עסקים עם בסיס לקוחות רחב</td></tr>
+          <tr><td><span class="svc-name">🎵 שירים / ג'ינגלים</span></td><td class="svc-price">2,500 – 12,000 ש"ח</td><td class="svc-for">מסעדות, חנויות, מותגים</td></tr>
+          <tr><td><span class="svc-name">🌐 אתר אינטרנט</span></td><td class="svc-price">5,000 – 28,000 ש"ח</td><td class="svc-for">כל עסק</td></tr>
+          <tr><td><span class="svc-name">🎓 סדנת אימון AI</span></td><td class="svc-price">2,500 – 6,000 ש"ח ליום</td><td class="svc-for">חברות עם עובדים</td></tr>
+          <tr><td><span class="svc-name">🔄 מנוי שעות חודשי</span></td><td class="svc-price">1,800 – 6,800 ש"ח/חודש</td><td class="svc-for">לקוחות קיימים</td></tr>
+          <tr><td><span class="svc-name">📅 תוכן לכל השנה</span></td><td class="svc-price">4,500 – 12,000 ש"ח</td><td class="svc-for">כל עסק עם רשתות חברתיות</td></tr>
+          <tr><td><span class="svc-name">💬 צ'אט בוט</span></td><td class="svc-price">4,000 – 16,000 ש"ח</td><td class="svc-for">כל עסק עם אתר / וואטסאפ</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- OBJECTION -->
+<section class="section" id="close">
+  <div class="wrap">
+    <span class="sect-eyebrow reveal" style="text-align:center;display:block">כלים לסגירת עסקה</span>
+    <h2 class="sect-title reveal" style="text-align:center">כשהלקוח אומר "יקר לי"</h2>
+    <p class="sect-sub reveal" style="text-align:center;margin:0 auto 48px">הוא לא אומר לא. הוא עדיין לא חישב כמה עולה לו לא לשנות כלום.</p>
+    <div class="objection-wrap reveal">
+      <span class="obj-label">התשובה הנכונה</span>
+      <p class="obj-q">כשלקוח אומר "אין לי תקציב" —</p>
+      <div class="obj-quote">
+        "כמה עולה לך שעת עבודה של עובד?<br>
+        כמה שעות בשבוע המערכת הזו חוסכת?<br>
+        <em>תחשב לבד.</em>"
+      </div>
+      <p class="obj-note">זה לא הוצאה — זו השקעה שמחזירה את עצמה תוך <strong>3–4 חודשים.</strong></p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>מסמך פנימי — לשימוש <strong>עדן</strong> בלבד &nbsp;·&nbsp; CONFIDENTIAL</p>
+  </div>
+</footer>
+
+<script>
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach((el, i) => {
+    if (el.isIntersecting) {
+      setTimeout(() => el.target.classList.add('in'), i * 55);
+      obs.unobserve(el.target);
+    }
+  });
+}, { threshold: 0.07 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
